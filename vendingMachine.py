@@ -57,12 +57,20 @@ class VendingMachine():
                     for i in range(len(affordableProducts)):
                         product = affordableProducts[i]
                         print("\t[" + str(i + 1) + "]: " + product + ": " +  currencyFmt(self.stock.getPrice(product)))
-                    productNum = int(input("Enter # to purchase: ")) - 1
+                    while True:
+                        productNum = input("Enter # to purchase: ")
+                        if productNum.isdigit():
+                            productNum = int(productNum) - 1
+                            break
+                        else:
+                            print("Invalid input. Try again.")
                     if productNum >= 0 and productNum < len(affordableProducts):
                         self.vend(affordableProducts[productNum])
                         break
                     else:
                         print("Invalid input.  Please Try Again.")
+        else:
+            print("No item affordable with " + currencyFmt(self.getCredit()))
 
     def receiveCredit(self, input):
         """
